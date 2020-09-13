@@ -31,6 +31,14 @@ def numpy_safe_exp(x):
         return result
 
 
+def maximize(left, right):
+    return np.array([max(l1, l2) for l1, l2 in zip(left.tolist(), right.tolist())])
+
+
+def minimize(left, right):
+    return np.array([min(l1, l2) for l1, l2 in zip(left.tolist(), right.tolist())])
+
+
 def numpy_protected_div_dividend(left, right):
     with np.errstate(divide='ignore', invalid='ignore'):
         x = np.divide(left, right)
@@ -105,13 +113,15 @@ ops = [
     Operator(np.add, 2, '({0} + {1})', 'add({0},{1})', 'add'),
     Operator(np.subtract, 2, '({0} - {1})', 'sub({0},{1})', 'sub'),
     Operator(np.multiply, 2, '({0} * {1})', 'mul({0},{1})', 'mul'),
-    Operator(numpy_protected_div_dividend, 2, '({0} / {1})', 'div({0},{1})', 'div'),
+    Operator(numpy_protected_div_dividend, 2, '({0} / {1})', 'div({0},{1})', 'div'),    
+    Operator(maximize,2, 'max({0},{1})', 'max({0},{1})', 'max'),
+    Operator(minimize,2, 'min({0},{1})', 'min({0},{1})', 'min'),
     #Operator(numpy_safe_exp, 1, 'exp({0})', 'exp({0})', 'exp'),
-    Operator(numpy_protected_log_one, 1, 'log({0})', 'log({0})', 'log'),
-    Operator(square, 1, 'sqr({0})', 'sqr({0})', 'sqr'),
-    Operator(numpy_protected_sqrt, 1, 'sqt({0})', 'sqt({0})', 'sqt'),
-    Operator(cube, 1, 'cbe({0})', 'cbe({0})', 'cbe'),
-    Operator(np.cbrt, 1, 'cbt({0})', 'cbt({0})', 'cbt'),
+    #Operator(numpy_protected_log_one, 1, 'log({0})', 'log({0})', 'log'),
+    #Operator(square, 1, 'sqr({0})', 'sqr({0})', 'sqr'),
+    #Operator(numpy_protected_sqrt, 1, 'sqt({0})', 'sqt({0})', 'sqt'),
+    #Operator(cube, 1, 'cbe({0})', 'cbe({0})', 'cbe'), #increase test mse
+    #Operator(np.cbrt, 1, 'cbt({0})', 'cbt({0})', 'cbt'),
     Operator(None, None, None, None, 'mutate'),
     Operator(None, None, None, None, 'transition')
 ]
